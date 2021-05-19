@@ -1,43 +1,9 @@
 <?php
-
-class Produto {
-    private $nome;
-    private $descricao;
-    private $valor;
-
-    public function getNome(){
-        return $this->nome;
-    }
-    
-    public function setNome($nome){
-        $this->nome = $nome;
-    }
-    
-    public function getDescricao(){
-        return $this->descricao;
-    }
-    
-    public function setDescricao($descricao){
-        $this->descricao = $descricao;
-    }
-
-    public function getValor(){
-        return $this->valor;
-    }
-    
-    public function setValor($valor){
-        $this->valor = $valor;
-    }
-}
-
-?>
-
-<?php
     class Produto{
         private $id;
-        private $quantidade;
         private $descricao;
         private $preco;
+        private $quantidade;
 
         public function __construct($id=false){
             if($id){
@@ -117,11 +83,15 @@ class Produto {
                 $sql = "INSERT INTO produto (descricao, preco, quantidade)
                 VALUES (:descricao, :preco, :quantidade)";
 
-                $stmt = DB::conexao()->prepare($sql);
+                $conexao = DB::conexao();
+                $stmt = $conexao->prepare($sql);
                 $stmt->bindParam(':descricao', $this->descricao);
                 $stmt->bindParam(':preco', $this->preco);
                 $stmt->bindParam(':quantidade', $this->quantidade);
                 $stmt->execute();
+
+                return $conexao->lastInsertId();
+                
             }catch(PDOException $e){
                 echo "ERRO AO ADICIONAR: ".$e->getMessage();
             }

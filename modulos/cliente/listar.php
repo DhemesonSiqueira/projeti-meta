@@ -1,5 +1,7 @@
-<?php include("./classes/DB.class.php"); ?>
-
+<?php
+    include("../../classes/Cliente.class.php");
+    $clientes = Cliente::listar();
+?>
 <table>
 <tr>
     <th>ID</th>

@@ -1,14 +1,12 @@
 <?php
 
-class Cliente{
-        
+    class Cliente{
         private $id;
         private $nome;
         private $email;
         private $telefone;
 
         public function __construct($id=false){
-
             if($id){
                 $sql = "SELECT * FROM cliente WHERE id_cliente =  :id";
                 $stmt = DB::Conexao()->prepare($sql);
@@ -57,8 +55,7 @@ class Cliente{
             return $this->telefone;
         }
 
-        public static function listar(){
-            
+        public static function listar(){            
             $sql = "SELECT * FROM cliente";
             $stmt = DB::conexao()->prepare($sql);
             $stmt->execute();
@@ -87,11 +84,14 @@ class Cliente{
                 $sql = "INSERT INTO cliente (nome, email, telefone )
                 VALUES (:nome, :email, :telefone)";
 
-                $stmt = DB::conexao()->prepare($sql);
+                $conexao = DB::conexao();
+                $stmt = $conexao->prepare($sql);
                 $stmt->bindParam(':nome', $this->nome);
                 $stmt->bindParam(':email', $this->email );
                 $stmt->bindParam(':telefone', $this->telefone);
                 $stmt->execute();
+                
+                return $conexao->lastInsertId();
 
             }catch(PDOException $e){
                 echo "ERRO AO ADICIONAR: ".$e->getMessage();
@@ -107,7 +107,7 @@ class Cliente{
                             telefone = :telefone
                             WHERE id_cliente = :id";
                     $stmt = DB::conexao()->prepare($sql);
-                    $stmt->bindParam(':nome', $this->descricao);
+                    $stmt->bindParam(':nome', $this->nome);
                     $stmt->bindParam(':email', $this->email);
                     $stmt->bindParam(':telefone', $this->telefone);
                     $stmt->bindParam(':id', $this->id);
@@ -135,4 +135,3 @@ class Cliente{
         }
         
     }
-?>

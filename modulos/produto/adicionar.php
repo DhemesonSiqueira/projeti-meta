@@ -1,26 +1,21 @@
 <?php
-    $nome = $_POST['nome'];
-    $valor = $_POST['valor'];
-    $descricao = $_POST['descricao'];
-
-    include('classes/Produto.class.php');
+if(isset($_POST['botao']) && $_POST['botao'] == "Salvar"){    
+    include('../../classes/Produto.class.php');
     $produto = new Produto();
-    $produto->setNome($nome);
-    $produto->setValor($valor);
-    $produto->setDescricao($descricao);
-
-    echo "O Nome do Produto digitado: ".$produto->getNome()."<br/>";
-    echo "O Valor do Produto digitado: ".$produto->getValor()."<br/>";
-    echo "A descricao do Produto digitado: ".$produto->getDescricao()."<br/>";
-
+    $produto->setDescricao($_POST['descricao']);
+    $produto->setPreco($_POST['preco']);
+    $produto->setQuantidade($_POST['quantidade']);
+    $produto->adicionar();    
+}
+   
 ?>
 
 
 <form method='post' action=''>
-Nome:      <input type="text" name='nome'></br>
-Valor:          <input type="text" name='valor'></br>
-Descricao:     <input type="text" name='descricao'></br>
+Descrição:      <input type="text" name='descricao'></br>
+Preço:          <input type="text" name='preco'></br>
+Quantidade:     <input type="text" name='quantidade'></br>
 
-<input type='submit' name='salvar' value='Salvar'>
+<input type='submit' name='botao' value='Salvar'>
 
 </form>
