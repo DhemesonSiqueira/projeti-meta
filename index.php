@@ -1,3 +1,12 @@
+
+<?php
+
+session_start();
+#print_r($_SESSION);
+
+if(isset($_SESSION['login']) && isset($_SESSION['id'])){
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -123,3 +132,11 @@
 </div>
 </body>
 </html>
+<?php
+  
+}else{
+  echo "Você precisa efetuar o login. <a href='login.php'>VOLTAR</a>";
+}
+
+
+?>
