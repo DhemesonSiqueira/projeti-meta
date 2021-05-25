@@ -21,8 +21,10 @@ if(isset($_GET['id']) AND is_numeric($_GET['id'])){
 ?>
 
 <form method='post' action=''>
-Nome:      <input type="text" name='nome' value='<?php echo $cliente->getNome();?>'></br>
-Email:          <input type="text" name='email'  value='<?php echo $cliente->getEmail();?>'></br>
+Nome: <input type="text" name='nome' value='<?php echo $cliente->getNome();?>'></br>
+Email: <input type="text" name='email'  value='<?php echo $cliente->getEmail();?>'></br>
+Telefone: <input type="text" name='telefone'  value='<?php echo $cliente->getTelefone();?>'></br>
+<input type="hidden" name='id' value='<?php echo $cliente->getId(); ?>'></br>
 
 <input type='submit' name='botao' value='Salvar'>
 </form>

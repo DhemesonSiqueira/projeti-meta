@@ -1,38 +1,34 @@
 <?php
-    class Usuario{
-        protected $id;
-        protected $nome;
-        protected $usuario;
-        protected $email;
-        protected $senha;
+class Usuario
+{
+    protected $id;
+    protected $nome;
+    protected $usuario;
+    protected $email;
+    protected $senha;
 
-        public static function logar($usuario, $senha){
-            if($usuario && $senha){
-                $sql = "SELECT * FROM usuario WHERE usuario = :usuario AND senha = :senha";
-                $stmt = DB::conexao()->prepare($sql);
-                $stmt->bindParam(':usuario', $usuario);
-                $stmt->bindParam(':senha',  $senha);
-                $stmt->execute();
+    public static function logar($usuario, $senha)
+    {
+        if ($usuario && $senha) {
+            $sql = "SELECT * FROM usuario WHERE usuario = :usuario AND senha = :senha";
+            $stmt = DB::conexao()->prepare($sql);
+            $stmt->bindParam(':usuario', $usuario);
+            $stmt->bindParam(':senha',  $senha);
+            $stmt->execute();
 
-                foreach($stmt as $obj){
-                    $_SESSION['login'] = $obj['usuario'];
-                    $_SESSION['id'] = $obj['id_usuario'];
-                }
-
+            foreach ($stmt as $obj) {
+                $_SESSION['login'] = $obj['usuario'];
+                $_SESSION['id'] = $obj['id_usuario'];
             }
-
         }
-
-
-
     }
-
+}
 
 ?>
 
 
 <form method="post">
-    usuario: <input type='text' name='login'><br/>
+    usuario: <input type='text' name='login'><br />
     senha: <input type='password' name='senha'>
     <input type='submit' name='botao' value='Logar'>
 

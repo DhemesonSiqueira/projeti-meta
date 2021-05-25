@@ -1,30 +1,35 @@
 <?php
-    $mesas = array();
-    $mesas[] = array("id" => 1, "nome" => "Joao", "descricao" => "joao@gmail.com", "status" => "Livre");
-    $mesas[] = array("id" => 2, "nome" => "Maria", "descricao" => "maria@gmail.com", "status" => "Livre");
-    $mesas[] = array("id" => 3, "nome" => "Pedro", "descricao" => "pedro@gmail.com", "status" => "Livre");   
-    $mesas[] = array("id" => 4, "nome" => "José", "descricao" => "jose@gmail.com", "status" => "Livre");   
-    $mesas[] = array("id" => 5, "nome" => "Benedito", "descricao" => "bene@gmail.com", "status" => "Livre");           
+include("../../classes/DB.class.php");
+include("../../classes/Mesa.class.php");
+$mesas = Mesa::listar();
 ?>
+
 <table>
-
-<tr>
-    <th>ID</th>
-    <th>NUMERO</th>
-    <th>DESCRIÇÃO</th>
-    <th>STATUS</th>
-</tr>
-
-<?php
-    foreach($mesas as $mesa){
-?>
     <tr>
-        <td><?php echo $mesa['id'];?></td>
-        <td><?php echo $mesa['nome'];?></td>
-        <td><?php echo $mesa['descricao'];?></td>
-        <td><?php echo $mesa['status'];?></td>
+        <th>ID</th>
+        <th>DESCRICAO</th>
+        <th>NÚMERO</th>
+        <th>STATUS</th>
+        <th>Operação</th>
     </tr>
-<?php
+
+    <?php
+    if ($mesas) {
+        foreach ($mesas as $mesa) {
+    ?>
+            <tr>
+                <td><?php echo $mesa->getId(); ?></td>
+                <td><?php echo $mesa->getDescricao(); ?></td>
+                <td><?php echo $mesa->getNumero(); ?></td>
+                <td><?php echo $mesa->getStatus(); ?></td>
+                <td><a href="?modulo=mesa&acao=editar&id=<?php echo $mesa->getId(); ?>">Editar</a></td>
+                <td><a href="?modulo=mesa&acao=excluir&id=<?php echo $mesa->getId(); ?>">Excluir</a></td>
+
+            </tr>
+    <?php
+        }
+    } else {
+        echo "<tr><td colspan='4'> Nenhum Registro Encontrado.</td></tr>";
     }
-?>
+    ?>
 </table>

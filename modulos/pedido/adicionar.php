@@ -1,30 +1,22 @@
 <?php
-    $numero = $_POST['numero'];
-    $descricao = $_POST['descricao'];
-    $valor = $_POST['valor'];
-    $itens = $_POST['itens'];
-
-    include("classes/Pedido.class.php");
+if(isset($_POST['botao']) && $_POST['botao'] == "Salvar"){    
+    include('../../classes/Pedido.class.php');
     $pedido = new Pedido();
-    $pedido->setNumero($numero);
-    $pedido->setDescricao($descricao);
-    $pedido->setValor($valor);
-    $pedido->setItens($itens);
-
-    echo "O Numero do pedido digitado: ".$pedido->getNumero()."<br/>";
-    echo "O descricao do pedido digitado: ".$pedido->getDescricao()."<br/>";
-    echo "O valor do pedido digitado: ".$pedido->getValor()."<br/>";
-    echo "Os Itens do pedido selecionados: ".$pedido->getItens()."<br/>";
-    
+    $pedido->setNumero($_POST['numero']);
+    $pedido->setDescricao($_POST['descricao']);
+    $pedido->setValor($_POST['valor']);
+    $pedido->setItens($_POST['itens']);
+    $pedido->adicionar();    
+}
+   
 ?>
 
 
 <form method='post' action=''>
-Numero:         <input type="text" name='numero'></br>
-Descricao:      <input type="text" name='descricao'></br>
-Valor:          <input type="text" name='valor'></br>
-Itens:          <input type="text" name='itens'></br>
+Preço: <input type="text" name='numero'></br>
+Descrição: <input type="text" name='descricao'></br>
+Itens: <input type="text" name='itens'></br>
 
-<input type='submit' name='salvar' value='Salvar'>
+<input type='submit' name='botao' value='Salvar'>
 
 </form>

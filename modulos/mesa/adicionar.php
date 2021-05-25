@@ -1,26 +1,21 @@
 <?php
-    $numero = $_POST['numero'];
-    $descricao = $_POST['descricao'];
-    $status = $_POST['status'];
-
-    include("classes/Mesa.class.php");
+if (isset($_POST['botao']) && $_POST['botao'] == "Salvar") {
+    include('../../classes/Mesa.class.php');
     $mesa = new Mesa();
-    $mesa->setNumero($numero);
-    $mesa->setDescricao($descricao);
-    $mesa->setStatus($status);
+    $mesa->setDescricao($_POST['descricao']);
+    $mesa->setNumero($_POST['numero']);
+    $mesa->setStatus($_POST['status']);
+    $mesa->adicionar();
+}
 
-    echo "O Numero da mesa digitado: ".$mesa->getNumero()."<br/>";
-    echo "O Descrição da mesa digitado: ".$mesa->getDescricao()."<br/>";
-    echo "O Status da mesa digitado: ".$mesa->getStatus()."<br/>";
-    
 ?>
 
 
 <form method='post' action=''>
-Numero:       <input type="text" name='numero'></br>
-Descricao:      <input type="text" name='descricao'></br>
-Status:   <input type="text" name='status'></br>
+    Descrição: <input type="text" name='descricao'></br>
+    Número: <input type="text" name='numero'></br>
+    Status: <input type="text" name='status'></br>
 
-<input type='submit' name='salvar' value='Salvar'>
+    <input type='submit' name='botao' value='Salvar'>
 
 </form>

@@ -1,13 +1,8 @@
 <?php
-    $restaurantes = array();
-    $restaurantes[] = array("id" => 1, "nome" => "Joao", "email" => "joao@gmail.com", "endereco" => "Rua Tiradentes, 1234, Bairro Centro");
-    $restaurantes[] = array("id" => 2, "nome" => "Maria", "email" => "maria@gmail.com", "endereco" => "Rua Tiradentes, 1234, Bairro Centro");
-    $restaurantes[] = array("id" => 3, "nome" => "Pedro", "email" => "pedro@gmail.com", "endereco" => "Rua Tiradentes, 1234, Bairro Centro");   
-    $restaurantes[] = array("id" => 4, "nome" => "José", "email" => "jose@gmail.com", "endereco" => "Rua Tiradentes, 1234, Bairro Centro");   
-    $restaurantes[] = array("id" => 5, "nome" => "Benedito", "email" => "bene@gmail.com", "endereco" => "Rua Tiradentes, 1234, Bairro Centro");           
+    include("../../classes/Restaurante.class.php");
+    $restaurantes = Restaurante::listar();
 ?>
 <table>
-
 <tr>
     <th>ID</th>
     <th>NOME</th>
@@ -16,15 +11,22 @@
 </tr>
 
 <?php
+if($restaurantes){
     foreach($restaurantes as $restaurante){
 ?>
     <tr>
-        <td><?php echo $restaurante['id'];?></td>
-        <td><?php echo $restaurante['nome'];?></td>
-        <td><?php echo $restaurante['email'];?></td>
-        <td><?php echo $restaurante['endereco'];?></td>
+        <td><?php echo $restaurante->getId();?></td>
+        <td><?php echo $restaurante->getNome();?></td>
+        <td><?php echo $restaurante->getEmail();?></td>
+        <td><?php echo $restaurante->getEndereco();?></td>
+        <td><a href="?modulo=restaurante&acao=editar&id=<?php echo $restaurante->getId();?>">Editar</a></td>
+        <td><a href="?modulo=restaurante&acao=ecluir&id=<?php echo $restaurante->getId();?>">Excluir</a></td>
+        
     </tr>
 <?php
     }
+}else{
+    echo "<tr><td colspan='4'> Nenhum Registro Encontrado.</td></tr>";
+}
 ?>
 </table>
